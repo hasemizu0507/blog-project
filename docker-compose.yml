@@ -7,4 +7,33 @@ services:
     container_name: app
     volumes:
       - ./app:/usr/src/app
-    command: flask run --host=0.0.0.0
+    command: flask --debug run --host=0.0.0.0
+    networks:
+      - mysql
+  db:
+    image: mysql:8.0.34-debian
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=database
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql
+    volumes:
+      - type: volume
+        source: data
+        target: "/var/lib/mysql"
+      - type: bind
+        source: ./
+        target: /app
+
+networks:
+  mysql:
+    # Use a custom driver
+    driver: bridge
+
+volumes:
+  data:
+    driver: local

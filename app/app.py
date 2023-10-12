@@ -25,11 +25,26 @@ Migrate(app, db)
 トップページのルーティング
 """
 from flask import render_template
+import MySQLdb
 
 @app.route("/")
 def index():
+    # DBに接続しカーソルを取得する
+    connect = MySQLdb.connect(host='db', port=3306, user='user', passwd='password' , db='database', charset='utf8')
+    cursor = connect.cursor()
+
+    #レコードの挿入
+    sql = "select * from posts"
+    cursor.execute(sql) # 1つ目のレコードを挿入
+    
+    id, name = cursor.fetchone()
+    cursor.close()
+    connect.close()     # データベースオジェクトを閉じる
+
+
+
     # index.htmlをレンダリングして返す
-    return render_template('index.html')
+    return render_template('index.html', id=id, name=name)
 
 """
 ブループリントの登録

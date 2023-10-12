@@ -6,7 +6,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <!-- ページタイトルを変更 -->
-        <title>Flask Blog</title>
+        <title>{{ name }}</title>
         <!-- アイコンのリンク先を設定 -->
         <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
         <!-- Font Awesome icons (free version)-->
@@ -47,7 +47,8 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
                             <!-- ヘッダーのタイトル変更 -->
-                            <h1>Flask Blog</h1>
+                            <!-- <h1>Flask Blog</h1> -->
+                            <h1>{{ id }}: {{ name }}</h1>
                             <span class="subheading">A Blog Theme by Start Bootstrap</span>
                         </div>
                     </div>
